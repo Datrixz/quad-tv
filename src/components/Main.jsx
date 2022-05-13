@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MdDoubleArrow, MdSearch } from "react-icons/md";
 import { SiSpinrilla } from "react-icons/si";
+import { Link } from "react-router-dom";
 const Main = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -63,7 +64,7 @@ const onSubmitHandler =(e) => {
             "http://placehold.jp/cccccc/999999/480x720.png?text=No%20Image%20Found"
           }
           alt=""
-          className="w-auto md:w-[20%] h-auto"
+          className="w-auto md:rounded-t-none rounded-t-lg md:w-[20%] h-auto/ self-center"
         />
         <div className="flex flex-col justify-evenly p-8 font-opensans flex-1">
           <div className="text-2xl font-semibold mb-8"> {ele.show?.name}</div>
@@ -82,10 +83,10 @@ const onSubmitHandler =(e) => {
               );
             })}
           </div>
-          <a href="" className="group no-underline text-red-600">
+          <Link to="detail" className="group no-underline text-red-600">
             Click to know more{" "}
             <MdDoubleArrow className="inline group-hover:animate-ping" />
-          </a>
+          </Link>
         </div>
       </div>
     );
