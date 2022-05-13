@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MdDoubleArrow, MdSearch } from "react-icons/md";
 import { SiSpinrilla } from "react-icons/si";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Main = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("all");
   const [finalSearch, setFinalSearch] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
     axios
@@ -21,7 +21,6 @@ const Main = () => {
       .then((response) => {
         response.data.length === 0 ? setIsEmpty(true) : setIsEmpty(false);
         setData(response.data);
-        console.log(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -31,10 +30,10 @@ const Main = () => {
       });
   }, [finalSearch]);
 
-const onSubmitHandler =(e) => {
-  e.preventDefault();
-  setFinalSearch(search);
-}
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    setFinalSearch(search);
+  };
 
   const loadingText = (
     <div className="flex-1 flex items-center justify-center text-4xl font-semibold font-opensans">
@@ -55,7 +54,7 @@ const onSubmitHandler =(e) => {
     let genrelen = ele.show.genres.length - 1;
     return (
       <div
-        key={ele.show.id}
+        key={ele.show?.id}
         className="rounded-lg p-2 flex flex-col md:flex-row items-start shadow-md  transition ease-in-out delay-50 hover:-translate-y-2 hover:shadow-xl duration-200 h-full"
       >
         <img
@@ -64,7 +63,7 @@ const onSubmitHandler =(e) => {
             "http://placehold.jp/cccccc/999999/480x720.png?text=No%20Image%20Found"
           }
           alt=""
-          className="w-auto md:rounded-t-none rounded-t-lg md:w-[20%] h-auto/ self-center"
+          className="w-auto md:w-[20%] h-auto/ self-center"
         />
         <div className="flex flex-col justify-evenly p-8 font-opensans flex-1">
           <div className="text-2xl font-semibold mb-8"> {ele.show?.name}</div>
@@ -76,14 +75,17 @@ const onSubmitHandler =(e) => {
             <span className="font-semibold">Genre:</span>{" "}
             {ele.show?.genres.map((item, index) => {
               return (
-                <>
+                <div className="inline-block" key={index}>
                   {item}
                   {index < genrelen && " / "}
-                </>
+                </div>
               );
             })}
           </div>
-          <Link to="detail" className="group no-underline text-red-600">
+          <Link
+            to={"detail/" + ele.show.id}
+            className="text-left group no-underline text-red-600"
+          >
             Click to know more{" "}
             <MdDoubleArrow className="inline group-hover:animate-ping" />
           </Link>
@@ -93,7 +95,9 @@ const onSubmitHandler =(e) => {
   });
   return (
     <>
-    <h1 className="text-center font-opensans font-semibold text-lg mt-6">Search for your favrourite shows</h1>
+      <h1 className="text-center font-opensans font-semibold text-lg mt-6">
+        Search for your favourite shows :
+      </h1>
       <form
         onSubmit={onSubmitHandler}
         className="mb-6 mt-3 w-full flex justify-center items-center"
@@ -102,7 +106,7 @@ const onSubmitHandler =(e) => {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-[30vw] min-w-[250px] border-none outline-none outline-black outline-1 p-2 rounded-l-full"
+          className="w-[30vw] min-w-[250px] border-none outline-none outline-black outline-1 py-2 px-4 rounded-l-full"
         />
         <button type="submit">
           <MdSearch className="inline-block bg-blue-500 text-white min-h-full h-[46px] w-auto border border-black border-1 border-l-0 rounded-r-full p-1" />
