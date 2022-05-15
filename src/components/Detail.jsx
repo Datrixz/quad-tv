@@ -7,6 +7,7 @@ const Detail = () => {
   let navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const titleStyle = "font-bold md:text-2xl font-nunito"
 
   const goBack = () => {
     navigate(-1);
@@ -42,13 +43,13 @@ const Detail = () => {
   let genrelen = data.genres.length - 1;
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       {/* HEADING SECTION  */}
 
-      <div className="text-4xl font-bold my-3 text-center">
+      <div className="text-4xl font-bold my-3">
         {data?.name}
       </div>
-      <div className="flex flex-col md:flex-row items-start font-opensans p-8 pt-1 rounded-2xl shadow-2xl">
+      <div className="flex flex-col md:flex-row font-opensans items-start p-8 rounded-2xl shadow-lg text-lg border-2 w-4/5">
         {/* IMAGE SECTION */}
 
         <img
@@ -63,30 +64,27 @@ const Detail = () => {
         {/* DETAILS SECTION */}
 
         <div className="py-6 md:px-6">
-          <div className="">
-            <b> Language:</b> {data?.language}{" "}
+          <div>
+            <span className={titleStyle}> Language:</span> {data?.language}
           </div>
-          <div className="">
-            <b> Rating: </b>
+          <div>
+            <span className={titleStyle}> Rating: </span>
             {data?.rating?.average || "N.A "}
             /10
           </div>
           <div>
-            {" "}
-            <b> Premier Date </b>: {data?.premiered}
+            <span className={titleStyle}> Premier Date </span>: {data?.premiered}
           </div>
           <div>
-            {" "}
-            <b> Status</b> :{" "}
+            <span className={titleStyle}> Status</span> :
             {data.status[0] === "E" ? (
-              <span className="text-red-500 font-semibold">Ended</span>
+              <span className="text-red-600 font-bold">Ended</span>
             ) : (
-              <span className="text-green-500 font-semibold">Running</span>
+              <span className="text-green-600 font-bold">Running</span>
             )}
           </div>
           <div className="text-md">
-            <span className="font-bold">Genre:</span>
-            {"  "}
+            <span className={titleStyle}>Genre:</span>
             {data?.genres.map((item, index) => {
               return (
                 <div className="inline-block" key={index}>
@@ -97,18 +95,16 @@ const Detail = () => {
             })}
           </div>
           <div>
-            <b> Days </b>:{" "}
+            <span className={titleStyle}> Days </span>:
             {data.schedule.days.map((ele, ind) => {
-              return <span>{ele}</span>;
+              return <span key={ind}>{ele}</span>;
             })}
           </div>
           <div>
-            {" "}
-            <b> Timing </b>: {data.schedule.time}
+            <span className={titleStyle}> Timing </span>: {data.schedule.time}
           </div>
           <div>
-            {" "}
-            <b> Summary </b>: {data.summary}
+            <span className={titleStyle}> Summary </span>:<div dangerouslySetInnerHTML={{__html: data.summary}}></div>
           </div>
         </div>
       </div>
