@@ -2,19 +2,20 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MdDoubleArrow, MdSearch } from "react-icons/md";
 import { SiSpinrilla } from "react-icons/si";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 const Main = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState("all");
+  const [search, setSearch] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
   let [searchParams, setSearchParams] = useSearchParams({ search: "all" });
+
   useEffect(() => {
     setLoading(true);
     axios
       .get("https://api.tvmaze.com/search/shows", {
         params: {
-          q: search,
+          q: searchParams.get("search"),
         },
       })
       .then((response) => {
@@ -44,7 +45,7 @@ const Main = () => {
   );
 
   const emptyPage = (
-    <div className="flex-1 flex items-center justify-center text-4xl font-semibold font-opensans">
+    <div className="w-screen flex-1 flex items-center justify-center text-2xl md:text-4xl font-semibold font-opensans">
       <h1>Nothing to show here...</h1>
     </div>
   );

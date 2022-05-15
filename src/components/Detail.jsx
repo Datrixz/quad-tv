@@ -111,7 +111,7 @@ const Detail = () => {
               ></div>
             </div>
           </div>
-          <div className="mt-4 flex justify-around">
+          <div className="mt-8 flex justify-around">
             <button
               onClick={goBack}
               className="bg-red-500 shadow shadow-red-700 active:shadow-none p-2 rounded-lg text-white font-bold"

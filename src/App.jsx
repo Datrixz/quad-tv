@@ -9,9 +9,8 @@ function App() {
       <TopBar />
       <Routes>
         <Route path="/" element={<Welcome />} />
-        <Route path="shows" element={<MainPage />}>
-        </Route>
-          <Route path="shows/:showId/:showName" element={<Detail />} />
+        <Route path="shows" element={<MainPage />}/>
+        <Route path="shows/:showId/:showName" element={<Detail />} />
       </Routes>
     </div>
   );
