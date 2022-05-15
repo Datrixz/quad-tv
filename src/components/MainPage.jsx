@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MdDoubleArrow, MdSearch } from "react-icons/md";
 import { SiSpinrilla } from "react-icons/si";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 const Main = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("all");
-  const [finalSearch, setFinalSearch] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
-  const navigate = useNavigate();
+  let [searchParams, setSearchParams] = useSearchParams({ search: "all" });
   useEffect(() => {
     setLoading(true);
     axios
@@ -28,11 +27,11 @@ const Main = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [finalSearch]);
+  }, [searchParams]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    setFinalSearch(search);
+    setSearchParams({ search: search });
   };
 
   const loadingText = (
@@ -83,7 +82,7 @@ const Main = () => {
             })}
           </div>
           <Link
-            to={"detail/" + ele.show.id}
+            to={"/shows/"+ele.show?.id+"/"+ele.show?.name}
             className="text-left group no-underline text-red-600"
           >
             Click to know more{" "}

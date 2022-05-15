@@ -7,7 +7,7 @@ const Detail = () => {
   let navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const titleStyle = "font-bold md:text-2xl font-nunito"
+  const titleStyle = "font-bold md:text-2xl font-nunito";
 
   const goBack = () => {
     navigate(-1);
@@ -43,13 +43,11 @@ const Detail = () => {
   let genrelen = data.genres.length - 1;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-4">
       {/* HEADING SECTION  */}
 
-      <div className="text-4xl font-bold my-3">
-        {data?.name}
-      </div>
-      <div className="flex flex-col md:flex-row font-opensans items-start p-8 rounded-2xl shadow-lg text-lg border-2 w-4/5">
+      <div className="text-4xl font-bold my-3">{data?.name}</div>
+      <div className="flex flex-col md:flex-row font-opensans items-start p-8 rounded-2xl shadow-lg text-lg border-2 w-full md:w-4/5">
         {/* IMAGE SECTION */}
 
         <img
@@ -63,48 +61,64 @@ const Detail = () => {
 
         {/* DETAILS SECTION */}
 
-        <div className="py-6 md:px-6">
+        <div className="py-6 md:px-6 flex flex-col justify-around self-stretch">
           <div>
-            <span className={titleStyle}> Language:</span> {data?.language}
+            <div>
+              <span className={titleStyle}> Language:</span> {data?.language}
+            </div>
+            <div>
+              <span className={titleStyle}> Rating: </span>
+              {data?.rating?.average || "N.A "}
+              /10
+            </div>
+            <div>
+              <span className={titleStyle}> Premier Date </span>:{" "}
+              {data?.premiered}
+            </div>
+            <div>
+              <span className={titleStyle}> Status</span> :
+              {data.status[0] === "E" ? (
+                <span className="text-red-600 font-bold">Ended</span>
+              ) : (
+                <span className="text-green-600 font-bold">Running</span>
+              )}
+            </div>
+            <div className="text-md">
+              <span className={titleStyle}>Genre:</span>
+              {data?.genres.map((item, index) => {
+                return (
+                  <div className="inline-block" key={index}>
+                    {item}
+                    {index < genrelen && " / "}
+                  </div>
+                );
+              })}
+            </div>
+            <div>
+              <span className={titleStyle}> Days </span>:
+              {data.schedule.days.map((ele, ind) => {
+                return <span key={ind}>{ele}</span>;
+              })}
+            </div>
+            <div>
+              <span className={titleStyle}> Timing </span>: {data.schedule.time}
+            </div>
+            <div>
+              <span className={titleStyle}> Summary </span>:
+              <div
+                dangerouslySetInnerHTML={{ __html: data.summary }}
+                className="text-justify"
+              ></div>
+            </div>
           </div>
-          <div>
-            <span className={titleStyle}> Rating: </span>
-            {data?.rating?.average || "N.A "}
-            /10
-          </div>
-          <div>
-            <span className={titleStyle}> Premier Date </span>: {data?.premiered}
-          </div>
-          <div>
-            <span className={titleStyle}> Status</span> :
-            {data.status[0] === "E" ? (
-              <span className="text-red-600 font-bold">Ended</span>
-            ) : (
-              <span className="text-green-600 font-bold">Running</span>
-            )}
-          </div>
-          <div className="text-md">
-            <span className={titleStyle}>Genre:</span>
-            {data?.genres.map((item, index) => {
-              return (
-                <div className="inline-block" key={index}>
-                  {item}
-                  {index < genrelen && " / "}
-                </div>
-              );
-            })}
-          </div>
-          <div>
-            <span className={titleStyle}> Days </span>:
-            {data.schedule.days.map((ele, ind) => {
-              return <span key={ind}>{ele}</span>;
-            })}
-          </div>
-          <div>
-            <span className={titleStyle}> Timing </span>: {data.schedule.time}
-          </div>
-          <div>
-            <span className={titleStyle}> Summary </span>:<div dangerouslySetInnerHTML={{__html: data.summary}}></div>
+          <div className="mt-4 flex justify-around">
+            <button
+              onClick={goBack}
+              className="bg-red-500 shadow shadow-red-700 active:shadow-none p-2 rounded-lg text-white font-bold"
+            >
+              Go back
+            </button>
+            <button className="bg-sky-500 shadow shadow-sky-700 active:shadow-none p-2 rounded-lg text-white font-bold">Book Ticket</button>
           </div>
         </div>
       </div>
