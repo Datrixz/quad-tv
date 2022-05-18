@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Detail from "./components/Detail";
 import MainPage from "./components/MainPage";
+import ModalBook from "./components/ModalBook";
 import TopBar from "./components/TopBar";
 import Welcome from "./components/Welcome";
 function App() {
@@ -10,7 +11,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="shows" element={<MainPage />}/>
-        <Route path="shows/:showId/:showName" element={<Detail />} />
+        <Route path="shows/:showId/:showName" element={<Detail />} >
+          <Route path="book" element={<ModalBook/>}/>
+        </Route>
       </Routes>
     </div>
   );

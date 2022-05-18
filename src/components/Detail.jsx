@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { SiSpinrilla } from "react-icons/si";
 
 const Detail = () => {
@@ -12,7 +12,7 @@ const Detail = () => {
   const goBack = () => {
     navigate(-1);
   };
-  let { showId } = useParams();
+  let { showId, showName } = useParams();
   useEffect(() => {
     setLoading(true);
     axios
@@ -43,7 +43,10 @@ const Detail = () => {
   let genrelen = data.genres.length - 1;
 
   return (
-    <div className="flex flex-col items-center p-4">
+    <>
+    <Outlet context={[showName,data.image?.original]}/>
+    <div className="flex flex-col items-center p-4 ">
+
       {/* HEADING SECTION  */}
 
       <div className="text-4xl font-bold my-3">{data?.name}</div>
@@ -118,11 +121,12 @@ const Detail = () => {
             >
               Go back
             </button>
-            <button className="bg-sky-500 shadow shadow-sky-700 active:shadow-none p-2 rounded-lg text-white font-bold">Book Ticket</button>
+            <Link to="book" className="bg-sky-500 shadow shadow-sky-700 active:shadow-none p-2 rounded-lg text-white font-bold">Book Ticket</Link>
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 };
 
