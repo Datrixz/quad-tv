@@ -108,8 +108,8 @@ const Main = () => {
           onChange={(e) => setSearch(e.target.value)}
           className="w-[30vw] min-w-[250px] border-none outline-none outline-black outline-1 py-2 px-4 rounded-l-full"
         />
-        <button type="submit">
-          <MdSearch className="inline-block bg-blue-500 text-white min-h-full h-[46px] w-auto border border-black border-1 border-l-0 rounded-r-full p-1" />
+        <button type="submit" className="inline-block bg-blue-500 text-white border border-black border-1 border-l-0 rounded-r-full p-1 h-full w-auto">
+          <MdSearch className="h-[39px] w-auto"  />
         </button>
       </form>
 
